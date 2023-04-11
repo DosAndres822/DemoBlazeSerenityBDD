@@ -1,0 +1,40 @@
+Conclusiones
+
+Hallazgos
+
+- Al seleccionar o dar clic sobre algunos de los productos en el Home, me pude percatar que la imagen,
+nombre y descripción del producto tienen un pequeño delay que por efectos de la prueba no la afecta directamente,
+pero que sin embargo si se realiza alguna verificación sobre el contenido del producto seleccionado, podría ocasionar que el objeto no sea interceptado,
+por lo tanto para fines de poder capturar sin problema, se podría incluir una espera explícita de la verificación.
+
+- Al dar clic en el botón de “Add to cart” el sistema una ventana de verificación, que bien no puede ser controlada directamente con las funciones comunes de WebElements,
+pero que sin embargo puede ser controlada con otra función:
+
+getDriver().switchTo().alert().accept();
+
+- Que al igual al momento de ser mostrada tiene un pequeño delay o problema de visualización inmediata, que genera contratiempos he impide que no sea detectada por el sistema
+en el primer momento, por lo tanto es indispensable utilizar una espera explicita también, particular para la función de las alertas o pop-ups:
+waitFor(ExpectedConditions.alertIsPresent());
+
+- Igualmente tambien esta ventana emergente tiene una acción al cerrar que toma un tiempo y en ocasiones no permite visualizar muy bien los links del menú superior de la página,
+por lo tanto fue necesario incluir otra espera explícita a la acción de búsqueda, para el link de “Home” utilizando la función de (waitUntilClickable()
+Por otra parte algunos links como el de “Home” específicamente no pudieron ser localizados por medio la función “linkText” y fue necesario construir un xpath relativo,
+de manera tal se pudiera localizar de forma más específica en el sistema.
+
+- También para el botón de “Place Order” tuve que construir un "xpath" relativo, ya que por medio del linkText no fue posible identificar el objeto.
+El el Form para poder visualizar de manera más fácil el botón de “Purchase” inicialmente tuve que realizar un Scroll down, que ya luego no fue necesario y fue removido,
+al modificar el tamaño de la ventana al abrirse, también tuve que crear un xpath relativo.
+
+- Por último me percate que el popup de confirmación de compra que muestra los datos del comprador al igual que el ID y de más, al mostrarse esta quedando sobrepuesto del form,
+lo cual no es muy correcto visualmente y permite que se le puedan dar varias veces más clic al botón de “Purchase” generando de esta manera más comprar de los mismos artículos
+con los mismos datos y generando nuevos ID para los mismos.
+
+Conclusiones del ejercicio.
+
+- En conclusión es una muy buena pagina para poner a prueba las destrezas para automatizar, asi como tambien, invita a investigar y encontrar nuevas formas de hacer las cosas,
+personalmente para este aplique el patrón de diseño ScreenPlay de automatización, aislando los locators en una clase propia,
+así como también dando una clase a cada funcionalidad necesaria. por otra parte al ser un ejercicio de E2E no fue necesario crear más de un escenarios con él (Given - When - Then)
+por lo tanto los a seguir de la prueba los pude desarrollar en una sola clase, asi como tambien dandole su propia clase e independencia para abrir el navegador.
+
+- Igualmente busque no generar repetición de código en cada una de las clase y funcionalidades que cree, así como también darle una independencia de responsabilidad a cada una para
+no sobrecargar ninguna respetando los principios SOLID así como las buenas practicas de programacion y automatizacion.
